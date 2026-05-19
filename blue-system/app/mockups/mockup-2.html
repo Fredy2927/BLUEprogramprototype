@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>B.L.U.E. — Mockup 2 · Stripe Docs Style</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<style>
+  /* ===== Stripe Docs / Linear / Vercel inspired ===== */
+  :root {
+    --bg: #ffffff; --canvas: #fafbfc;
+    --border: #e6e8eb; --border-strong: #cdd0d4;
+    --ink: #1a1f36; --ink-soft: #425466; --muted: #8898aa;
+    --link: #635bff;  /* Stripe purple */
+    --accent: #00d4ff; /* cyan */
+    --beg-bg: #f0fdf4; --beg-border: #16a34a;
+    --exp-bg: #faf5ff; --exp-border: #9333ea;
+    --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", "Inter", sans-serif;
+    --mono: ui-monospace, Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 15px; line-height: 1.55; }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* Header */
+  .topbar { padding: 14px 28px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 28px; background: var(--bg); }
+  .logo { font-weight: 700; font-size: 17px; letter-spacing: -0.02em; }
+  .logo .dot { color: var(--link); }
+  .top-nav { display: flex; gap: 22px; font-size: 14px; color: var(--ink-soft); font-weight: 500; }
+  .top-nav a { color: inherit; }
+  .top-nav a.active { color: var(--ink); font-weight: 600; }
+  .spacer { flex: 1; }
+  .search-wrap { position: relative; }
+  .search { width: 280px; padding: 8px 12px 8px 32px; border: 1px solid var(--border); border-radius: 8px; background: var(--canvas); color: var(--muted); font-size: 13px; }
+  .search-wrap::before { content: "⌕"; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+  .kbd { background: var(--canvas); border: 1px solid var(--border); border-radius: 4px; padding: 2px 6px; font-size: 11px; color: var(--muted); margin-left: 4px; font-family: var(--mono); }
+  .btn-cta { background: var(--ink); color: #fff; padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; }
+
+  /* Sub-nav (docs tabs) */
+  .subnav { padding: 0 28px; border-bottom: 1px solid var(--border); display: flex; gap: 22px; font-size: 14px; background: var(--bg); }
+  .subnav a { color: var(--ink-soft); padding: 12px 0; border-bottom: 2px solid transparent; }
+  .subnav a.active { color: var(--ink); border-bottom-color: var(--link); font-weight: 600; }
+
+  /* Three-col layout */
+  .layout { display: grid; grid-template-columns: 240px 1fr 220px; max-width: 1400px; margin: 0 auto; padding: 28px; gap: 36px; }
+  @media (max-width: 1100px) { .layout { grid-template-columns: 240px 1fr; } .right-rail { display: none; } }
+  @media (max-width: 800px) { .layout { grid-template-columns: 1fr; padding: 20px; } .sidebar { display: none; } }
+
+  /* Sidebar */
+  .sidebar { font-size: 13px; }
+  .sidebar h4 { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin: 22px 0 6px; }
+  .sidebar h4:first-child { margin-top: 0; }
+  .sidebar ul { list-style: none; padding: 0; margin: 0; }
+  .sidebar li { padding: 4px 0; }
+  .sidebar a { color: var(--ink-soft); padding: 4px 10px; margin-left: -10px; display: block; border-radius: 6px; }
+  .sidebar a:hover { background: var(--canvas); color: var(--ink); text-decoration: none; }
+  .sidebar a.active { background: #efeefe; color: var(--link); font-weight: 600; }
+  .sidebar .nested { margin-left: 14px; border-left: 1px solid var(--border); padding-left: 4px; }
+
+  /* Main */
+  .main h1 { font-size: 36px; line-height: 1.15; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 8px; }
+  .main .desc { font-size: 18px; color: var(--ink-soft); margin: 0 0 24px; max-width: 65ch; line-height: 1.5; }
+  .main h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; margin: 36px 0 10px; }
+  .main h3 { font-size: 17px; font-weight: 600; margin: 22px 0 8px; }
+  .main p { margin: 0.6em 0; max-width: 70ch; }
+
+  /* Audience tabs (the big idea here) */
+  .audience {
+    display: inline-flex;
+    background: var(--canvas); border: 1px solid var(--border); border-radius: 999px;
+    padding: 4px; margin: 8px 0 20px;
+    font-size: 13px; font-weight: 600;
+  }
+  .audience div { padding: 7px 18px; border-radius: 999px; color: var(--ink-soft); display: flex; align-items: center; gap: 6px; }
+  .audience div.active { background: var(--ink); color: #fff; }
+  .audience div.active.beginner { background: var(--beg-border); }
+  .audience div.active.expert { background: var(--exp-border); }
+
+  /* Audience content panels */
+  .panel-beg {
+    background: var(--beg-bg); border: 1px solid var(--beg-border); border-left-width: 4px;
+    padding: 16px 20px; border-radius: 8px; margin: 12px 0 22px; max-width: 70ch;
+  }
+  .panel-beg .ptag {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    background: var(--beg-border); color: #fff; padding: 2px 8px; border-radius: 4px;
+    text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;
+  }
+  .panel-exp {
+    background: var(--exp-bg); border: 1px solid var(--exp-border); border-left-width: 4px;
+    padding: 16px 20px; border-radius: 8px; margin: 12px 0 22px; max-width: 70ch;
+  }
+  .panel-exp .ptag {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    background: var(--exp-border); color: #fff; padding: 2px 8px; border-radius: 4px;
+    text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;
+  }
+  .panel-beg p, .panel-exp p { margin: 0.3em 0; }
+
+  /* Cards (lesson tiles) */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin: 18px 0 28px; }
+  .card { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; transition: transform .1s, box-shadow .1s, border-color .1s; }
+  .card:hover { border-color: var(--link); box-shadow: 0 4px 14px rgba(99,91,255,0.08); }
+  .card .ico { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: #efeefe; color: var(--link); border-radius: 8px; font-size: 18px; margin-bottom: 10px; }
+  .card .ct { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .card .cd { font-size: 13px; color: var(--ink-soft); }
+  .card .cm { font-size: 12px; color: var(--muted); margin-top: 10px; }
+
+  /* Right rail */
+  .right-rail { font-size: 13px; position: sticky; top: 24px; align-self: start; }
+  .right-rail h5 { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 8px; }
+  .right-rail ol { list-style: none; padding-left: 0; margin: 0; }
+  .right-rail li { padding: 4px 0; }
+  .right-rail a { color: var(--ink-soft); display: block; padding: 4px 8px; margin-left: -8px; border-radius: 5px; }
+  .right-rail a.active { color: var(--link); background: #efeefe; font-weight: 600; }
+
+  /* Footer */
+  .footer { border-top: 1px solid var(--border); padding: 24px 28px; text-align: center; color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="logo">b<span class="dot">.</span>l<span class="dot">.</span>u<span class="dot">.</span>e</div>
+  <nav class="top-nav">
+    <a class="active">Lessons</a>
+    <a>Contribute</a>
+    <a>Bounties</a>
+    <a>Architecture</a>
+    <a>Helpers</a>
+  </nav>
+  <div class="spacer"></div>
+  <div class="search-wrap">
+    <input class="search" placeholder="Search…" />
+  </div>
+  <span class="kbd">⌘K</span>
+  <span class="btn-cta">Sign in</span>
+</header>
+
+<nav class="subnav">
+  <a class="active">Home</a>
+  <a>All lessons</a>
+  <a>Browse by topic</a>
+  <a>Recently published</a>
+  <a>In review</a>
+  <a>API for educators</a>
+</nav>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <h4>Get started</h4>
+    <ul>
+      <li><a class="active">Welcome to B.L.U.E.</a></li>
+      <li><a>How lessons are organised</a></li>
+      <li><a>Who writes the lessons</a></li>
+      <li><a>How quality is checked</a></li>
+    </ul>
+    <h4>Subjects</h4>
+    <ul>
+      <li><a>Electronics</a></li>
+      <li class="nested"><ul>
+        <li><a>Digital</a></li>
+        <li><a>Logic gates</a></li>
+        <li><a>CPU design</a></li>
+        <li><a>Analog</a></li>
+      </ul></li>
+      <li><a>Woodworking</a></li>
+      <li><a>Bicycles</a></li>
+      <li><a>Homebrewing</a></li>
+    </ul>
+    <h4>Take part</h4>
+    <ul>
+      <li><a>Write a lesson</a></li>
+      <li><a>Become a verifier</a></li>
+      <li><a>Open bounties</a></li>
+      <li><a>Open RFCs</a></li>
+    </ul>
+    <h4>Reference</h4>
+    <ul>
+      <li><a>Policies</a></li>
+      <li><a>Glossary</a></li>
+      <li><a>Data export</a></li>
+      <li><a>Status</a></li>
+    </ul>
+  </aside>
+
+  <main class="main">
+
+    <h1>Learn how to do anything.</h1>
+    <p class="desc">A free, community-built encyclopedia of practical skills — from soldering a transistor to brewing beer. Every lesson is written by people who know how, and checked by people who know better.</p>
+
+    <div class="audience">
+      <div class="active beginner">🌱 For beginners</div>
+      <div>🧑‍🔬 For experts</div>
+      <div>📐 For verifiers</div>
+    </div>
+
+    <div class="panel-beg">
+      <span class="ptag">🌱 If you're new here</span>
+      <p>Pick a topic that interests you and start with a <strong>Level 1</strong> lesson. Each lesson tells you exactly what to do, step by step. If a word is unfamiliar, hover over it for a plain-language definition. When you're done, climb up to the next level — the site will tell you which easier lessons to read first.</p>
+      <p style="margin-top:10px"><a>📚 See Level 1 lessons</a> &nbsp;·&nbsp; <a>🎲 Surprise me</a> &nbsp;·&nbsp; <a>📖 Glossary</a></p>
+    </div>
+
+    <div class="panel-exp" style="display:none">
+      <span class="ptag">🧑‍🔬 If you already know the topic</span>
+      <p>Use the search palette (⌘K) to jump directly to a lesson. The right-rail TOC gives a one-click index of every section. Each lesson lists alternate methods at the bottom — feel free to propose new ones or open a promotion vote when usage patterns shift.</p>
+    </div>
+
+    <h2>Popular subjects</h2>
+    <div class="card-grid">
+      <div class="card">
+        <div class="ico">⚡</div>
+        <div class="ct">Electronics</div>
+        <div class="cd">Build circuits, from a single transistor to a working CPU.</div>
+        <div class="cm">6 lessons · L1 → L3 covered</div>
+      </div>
+      <div class="card">
+        <div class="ico">🪵</div>
+        <div class="ct">Woodworking</div>
+        <div class="cd">Join, shape, and finish wood — from joinery to furniture.</div>
+        <div class="cm">2 lessons · L1 covered</div>
+      </div>
+      <div class="card">
+        <div class="ico">🚲</div>
+        <div class="ct">Bicycles</div>
+        <div class="cd">Maintain, repair, and assemble your own bicycle.</div>
+        <div class="cm">No lessons yet · open a wish</div>
+      </div>
+      <div class="card">
+        <div class="ico">🍺</div>
+        <div class="ct">Homebrewing</div>
+        <div class="cd">From extract kits to full-grain brewing at home.</div>
+        <div class="cm">No lessons yet · open a wish</div>
+      </div>
+    </div>
+
+    <h2>Featured this week</h2>
+    <div class="card-grid">
+      <div class="card">
+        <div class="ct">Build a BJT</div>
+        <div class="cd">A three-terminal silicon device used as a switch or amplifier — the foundation of all digital logic.</div>
+        <div class="cm">Level 1 · 8 min read · @kira · 1,247 found helpful</div>
+      </div>
+      <div class="card">
+        <div class="ct">Build a NAND gate from BJTs</div>
+        <div class="cd">The universal logic gate. Every Boolean function can be made from NANDs alone.</div>
+        <div class="cm">Level 2 · 12 min read · @otto · 412 found helpful</div>
+      </div>
+      <div class="card">
+        <div class="ct">Build a 4-bit ALU from NAND gates</div>
+        <div class="cd">Combines logic gates into the arithmetic heart of a classical CPU.</div>
+        <div class="cm">Level 3 · 18 min read · being checked</div>
+      </div>
+    </div>
+
+    <h2>What's happening</h2>
+    <p>The community is actively voting on five Requests for Comment about how B.L.U.E. should grow. <a>See open RFCs →</a></p>
+    <p>Three lesson bounties have been fully funded by the community. Authors who claim them get a 20% reputation bonus. <a>See open bounties →</a></p>
+
+  </main>
+
+  <aside class="right-rail">
+    <h5>On this page</h5>
+    <ol>
+      <li><a class="active">Welcome</a></li>
+      <li><a>Popular subjects</a></li>
+      <li><a>Featured this week</a></li>
+      <li><a>What's happening</a></li>
+    </ol>
+    <h5 style="margin-top:24px">Was this page helpful?</h5>
+    <p style="color:var(--muted);font-size:12px">👍 Yes &nbsp; 👎 No</p>
+    <h5 style="margin-top:24px">Quick links</h5>
+    <ol>
+      <li><a>📜 Policies</a></li>
+      <li><a>💬 Forum</a></li>
+      <li><a>🐛 Report a bug</a></li>
+    </ol>
+  </aside>
+
+</div>
+
+<div class="footer">
+  All content under CC BY-SA 4.0 · From an idea by Sebastian Rey · Static mockup
+</div>
+
+</body>
+</html>

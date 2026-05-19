@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>B.L.U.E. — Mockup 5 · Newspaper Hybrid</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<style>
+  /* ===== Guardian / Atlantic / NYT editorial inspired ===== */
+  :root {
+    --paper: #f6f3ec;   /* warm newsprint */
+    --bg: #fdfbf5;
+    --ink: #1a1814;
+    --ink-soft: #4a463e;
+    --muted: #7a746a;
+    --rule: #cfc8b9;
+    --rule-soft: #e6e1d5;
+    --link: #b1361e;    /* editorial red */
+    --link-visited: #6b2511;
+    --tag-blue: #0a4d72;
+    --tag-green: #3a6a3a;
+    --tag-orange: #a5571e;
+    --tag-purple: #5d3a8a;
+    --beg-bg: #e6f1e6; --beg-text: #2a5c2a;
+    --serif: "EB Garamond", "Georgia", "Times New Roman", serif;
+    --display: "Playfair Display", "Georgia", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--serif); font-size: 17px; line-height: 1.55; }
+  a { color: var(--ink); text-decoration: none; }
+  a:hover { text-decoration: underline; color: var(--link); }
+
+  /* Masthead */
+  .masthead {
+    text-align: center;
+    padding: 22px 24px 12px;
+    border-bottom: 2px solid var(--ink);
+    background: var(--bg);
+  }
+  .top-line { display: flex; justify-content: space-between; align-items: center; font-family: var(--sans); font-size: 12px; color: var(--muted); max-width: 1100px; margin: 0 auto 14px; text-transform: uppercase; letter-spacing: 1px; }
+  .nameplate {
+    font-family: var(--display);
+    font-size: 64px; font-weight: 900;
+    letter-spacing: -0.02em; line-height: 1;
+    margin: 0;
+  }
+  .nameplate .b { color: var(--link); }
+  .subname { font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--ink-soft); margin-top: 6px; }
+
+  /* Section nav */
+  .section-nav {
+    display: flex; justify-content: center; gap: 28px;
+    padding: 12px 24px;
+    border-bottom: 1px solid var(--rule);
+    background: var(--bg);
+    font-family: var(--sans); font-size: 13px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1px;
+    overflow-x: auto;
+  }
+  .section-nav a { color: var(--ink-soft); }
+  .section-nav a.active { color: var(--link); }
+
+  /* Layout */
+  .grid { max-width: 1180px; margin: 0 auto; padding: 30px 24px 50px; }
+
+  /* Top story */
+  .top-story { display: grid; grid-template-columns: 2.2fr 1fr; gap: 36px; border-bottom: 1px solid var(--rule); padding-bottom: 30px; }
+  @media (max-width: 800px) { .top-story { grid-template-columns: 1fr; } }
+  .top-story .ts-img {
+    background: linear-gradient(135deg, #2c2820, #4a3e2e);
+    aspect-ratio: 16/10;
+    color: #e6dec8;
+    display: flex; align-items: flex-end; padding: 18px 22px;
+    font-family: var(--sans); font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
+    border: 1px solid var(--rule);
+  }
+  .top-story .ts-img::before {
+    content: "[photo: hands soldering a transistor on a wooden workbench]";
+  }
+  .top-story .ts-main {
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .section-label { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--link); }
+  .top-story h1 {
+    font-family: var(--display); font-size: 44px; line-height: 1.1; font-weight: 700;
+    margin: 4px 0 6px; color: var(--ink); letter-spacing: -0.02em;
+  }
+  .top-story .standfirst { font-size: 19px; line-height: 1.45; color: var(--ink-soft); margin: 4px 0 10px; font-family: var(--serif); }
+  .byline { font-family: var(--sans); font-size: 12px; color: var(--muted); letter-spacing: 0.5px; }
+  .byline strong { color: var(--ink); font-weight: 600; }
+
+  /* "Quick read" inline summary */
+  .quickread {
+    background: var(--paper); border-left: 4px solid var(--link);
+    padding: 12px 16px; margin: 14px 0 0; font-family: var(--sans); font-size: 14px; line-height: 1.55;
+  }
+  .quickread .lbl { display: block; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--link); margin-bottom: 4px; }
+
+  /* Three-up section */
+  .three-up { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; margin-top: 30px; padding-top: 24px; border-top: 1px solid var(--rule); }
+  @media (max-width: 800px) { .three-up { grid-template-columns: 1fr; } }
+  .three-up .col h2 { font-family: var(--display); font-weight: 700; font-size: 24px; line-height: 1.2; margin: 4px 0 6px; }
+  .three-up .col .standfirst { font-size: 16px; color: var(--ink-soft); line-height: 1.5; margin: 0 0 8px; }
+  .three-up .col .byline { font-size: 11px; color: var(--muted); }
+
+  /* Inline level pills */
+  .pill { display: inline-block; font-family: var(--sans); font-size: 10px; font-weight: 700; padding: 2px 9px; border-radius: 999px; text-transform: uppercase; letter-spacing: 1px; margin-right: 6px; }
+  .pill.beg { background: #d9e9d9; color: var(--tag-green); }
+  .pill.med { background: #d6e3ee; color: var(--tag-blue); }
+  .pill.hard { background: #f0dac3; color: var(--tag-orange); }
+  .pill.exp { background: #e0d2ec; color: var(--tag-purple); }
+
+  /* Listings (lower section) */
+  .listings { display: grid; grid-template-columns: 2fr 1fr; gap: 36px; margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--rule); }
+  @media (max-width: 800px) { .listings { grid-template-columns: 1fr; } }
+
+  .feature-list { list-style: none; padding: 0; margin: 0; }
+  .feature-list > li { padding: 18px 0; border-bottom: 1px solid var(--rule-soft); display: grid; grid-template-columns: 110px 1fr; gap: 18px; }
+  .feature-list > li:last-child { border-bottom: 0; }
+  .feature-list .placard {
+    background: var(--paper); border: 1px solid var(--rule); padding: 8px 10px; text-align: center;
+    font-family: var(--sans); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted);
+    display: flex; flex-direction: column; justify-content: center; gap: 4px;
+  }
+  .feature-list .placard strong { font-family: var(--display); font-size: 22px; color: var(--ink); font-weight: 700; }
+  .feature-list .ttl { font-family: var(--display); font-size: 22px; font-weight: 600; line-height: 1.25; margin: 0; }
+  .feature-list .lede { font-size: 15px; color: var(--ink-soft); margin: 6px 0 0; line-height: 1.5; max-width: 60ch; }
+  .feature-list .meta { font-family: var(--sans); font-size: 11px; color: var(--muted); margin-top: 6px; letter-spacing: 0.5px; }
+
+  /* Sidebar (right column) */
+  .sidebar .sec { padding: 16px 0; border-bottom: 1px solid var(--rule-soft); }
+  .sidebar .sec:first-child { padding-top: 0; }
+  .sidebar h3 { font-family: var(--display); font-size: 20px; font-weight: 700; margin: 0 0 8px; }
+  .sidebar h3 .label { display: inline-block; font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--link); margin-right: 6px; vertical-align: middle; }
+  .sidebar ol { padding-left: 20px; margin: 0; font-family: var(--serif); font-size: 16px; line-height: 1.5; }
+  .sidebar ol li { padding: 6px 0; }
+
+  /* "From the editor" pull box */
+  .pullquote {
+    background: var(--bg); border-top: 3px solid var(--ink); border-bottom: 1px solid var(--rule);
+    padding: 22px 26px; margin: 36px 0;
+  }
+  .pullquote q {
+    font-family: var(--display); font-size: 28px; line-height: 1.3; quotes: "“" "”"; color: var(--ink);
+  }
+  .pullquote .attrib { font-family: var(--sans); font-size: 12px; letter-spacing: 0.5px; color: var(--muted); margin-top: 12px; text-transform: uppercase; }
+
+  /* Plain-words mini box (so non-experts still get hooked) */
+  .for-newcomers {
+    background: var(--beg-bg); padding: 16px 20px; border-radius: 0;
+    border: 1px dashed var(--tag-green);
+    font-family: var(--serif); font-size: 16px; color: var(--ink); line-height: 1.55;
+    margin-top: 14px; max-width: 60ch;
+  }
+  .for-newcomers .lbl { display: block; font-family: var(--sans); font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--tag-green); margin-bottom: 6px; }
+
+  /* Footer */
+  .footer { background: var(--ink); color: #aaa3a0; padding: 26px 24px; text-align: center; font-family: var(--sans); font-size: 12px; letter-spacing: 0.5px; margin-top: 40px; }
+  .footer a { color: #d8cfc0; }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="top-line">
+    <span>Tuesday, 19 May 2026 &nbsp;·&nbsp; Vol. 1 No. 47</span>
+    <span>Free to read &nbsp;·&nbsp; <a>Sign in</a></span>
+  </div>
+  <h1 class="nameplate"><span class="b">B</span>.L.U.E.</h1>
+  <div class="subname">The Universal Skills Encyclopedia &nbsp;·&nbsp; <em>by anyone, for everyone, forever free</em></div>
+</div>
+
+<nav class="section-nav">
+  <a class="active">Today</a>
+  <a>Electronics</a>
+  <a>Woodworking</a>
+  <a>Bicycles</a>
+  <a>Brewing</a>
+  <a>Cooking</a>
+  <a>Medicine</a>
+  <a>Opinion &amp; RFCs</a>
+  <a>Talk</a>
+  <a>Contribute</a>
+</nav>
+
+<div class="grid">
+
+  <!-- Top story -->
+  <section class="top-story">
+    <div>
+      <div class="ts-img"></div>
+    </div>
+    <div class="ts-main">
+      <div class="section-label">Featured · Electronics</div>
+      <h1>How to build a tiny switch that powers every computer</h1>
+      <p class="standfirst">A weekend project, a wafer of silicon, and three terminals: the lesson that opens our hierarchy explains the most important invention of the twentieth century — and asks you to make one yourself.</p>
+      <p class="byline">By <strong>@kira</strong> and <strong>@otto</strong> &nbsp;·&nbsp; Published 90 days ago &nbsp;·&nbsp; <span class="pill beg">Beginner</span> 8 min read &nbsp;·&nbsp; 1,247 readers found this helpful</p>
+
+      <div class="quickread">
+        <span class="lbl">⚡ Quick read · 30 seconds</span>
+        A bipolar junction transistor (BJT) is a small switch made from doped silicon. It is the foundational building block of digital electronics. This lesson walks you through fabricating one yourself using the classical diffused-base method.
+      </div>
+
+      <div class="for-newcomers">
+        <span class="lbl">🌱 Never built anything like this? Read this first.</span>
+        A transistor is a tiny part — smaller than a grain of rice — that decides whether electricity is allowed to flow or not. Your phone has about 16 billion of them inside it. This lesson teaches you to build <em>one</em>, by hand, over a weekend. You don't need an engineering degree, but you'll need patience and a quiet, clean workspace.
+      </div>
+    </div>
+  </section>
+
+  <!-- Three featured columns -->
+  <section class="three-up">
+    <div class="col">
+      <div class="section-label">From the workshop</div>
+      <h2>The universal gate, explained</h2>
+      <p class="standfirst">Why a single NAND can become any logical operation in the universe — and how to wire one together with two transistors and three resistors.</p>
+      <p class="byline">By @otto &nbsp;·&nbsp; <span class="pill med">School level</span> 12 min read</p>
+    </div>
+    <div class="col">
+      <div class="section-label">In review</div>
+      <h2>The calculator that fits in a shoebox</h2>
+      <p class="standfirst">Our newest submission strings together 74 NAND gates into a working four-bit ALU. Five verifiers are reading it now; one has already approved, one wants changes.</p>
+      <p class="byline">By @you &nbsp;·&nbsp; <span class="pill hard">Hobbyist</span> 18 min read &nbsp;·&nbsp; <em>under jury review</em></p>
+    </div>
+    <div class="col">
+      <div class="section-label">Most-wished lesson</div>
+      <h2>Will somebody finally write the flip-flop guide?</h2>
+      <p class="standfirst">240 of 300 reputation points pledged. Whoever writes the SR/D/JK flip-flop lesson will earn a bounty — and unlock half of digital electronics.</p>
+      <p class="byline">Backed by 3 supporters &nbsp;·&nbsp; <span class="pill med">School level</span> wanted</p>
+    </div>
+  </section>
+
+  <!-- Pull quote / from the editor -->
+  <div class="pullquote">
+    <q>I want to help build a system that does not need me to function.</q>
+    <div class="attrib">— Sebastian Rey, on the founding idea behind B.L.U.E.</div>
+  </div>
+
+  <!-- Listings -->
+  <section class="listings">
+    <div>
+      <h2 style="font-family:var(--display);font-size:28px;border-bottom:2px solid var(--ink);padding-bottom:6px;margin:0 0 8px">More lessons today</h2>
+      <ul class="feature-list">
+        <li>
+          <div class="placard"><strong>L1</strong><span>Beginner</span></div>
+          <div>
+            <h3 class="ttl">How to solder a through-hole component</h3>
+            <p class="lede">Hot metal, a thin wire of alloy, two pieces of copper. The single most-requested lesson on the site has finally been funded.</p>
+            <div class="meta">Status: wish funded &nbsp;·&nbsp; Topic: Electronics</div>
+          </div>
+        </li>
+        <li>
+          <div class="placard"><strong>L2</strong><span>School</span></div>
+          <div>
+            <h3 class="ttl">Build a NAND gate from BJTs</h3>
+            <p class="lede">The universal gate, in two transistors. Once you understand this, the rest of digital logic is just bigger versions of the same idea.</p>
+            <div class="meta">By @otto &nbsp;·&nbsp; 412 readers found helpful</div>
+          </div>
+        </li>
+        <li>
+          <div class="placard"><strong>L1</strong><span>Beginner</span></div>
+          <div>
+            <h3 class="ttl">How to make a mortise and tenon joint</h3>
+            <p class="lede">The oldest, strongest way to join two pieces of wood. A starter lesson opening our Woodworking subject.</p>
+            <div class="meta">Wish open: 45/200 points pledged</div>
+          </div>
+        </li>
+        <li>
+          <div class="placard"><strong>L3</strong><span>Hobbyist</span></div>
+          <div>
+            <h3 class="ttl">Build a 4-bit ALU from NAND gates</h3>
+            <p class="lede">Cascade four full adders, add a mode selector, and you have the math heart of a classical CPU.</p>
+            <div class="meta">In review &nbsp;·&nbsp; 5 days to deadline</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <aside class="sidebar">
+      <div class="sec">
+        <h3><span class="label">Opinion</span> RFCs open for vote</h3>
+        <ol>
+          <li><a>Should harder lessons have more verifiers?</a> &nbsp;<span style="color:var(--muted);font-size:13px">9 for · 6 against</span></li>
+          <li><a>Allow lesson forks when niches disagree?</a> &nbsp;<span style="color:var(--muted);font-size:13px">7 for · 3 against</span></li>
+          <li><a>Pick founding moderators for the first 6 months?</a> &nbsp;<span style="color:var(--muted);font-size:13px">5 for · 1 against</span></li>
+        </ol>
+      </div>
+
+      <div class="sec">
+        <h3><span class="label">Did you know?</span></h3>
+        <p style="margin:0;font-size:16px;line-height:1.55">The first transistor was hand-made in 1947 from a slab of germanium, a triangular piece of polystyrene, and two strips of gold foil. It changed everything.</p>
+      </div>
+
+      <div class="sec">
+        <h3><span class="label">By the numbers</span></h3>
+        <ol>
+          <li><strong>11</strong> lessons in the encyclopedia</li>
+          <li><strong>8</strong> published</li>
+          <li><strong>1</strong> currently in review</li>
+          <li><strong>3</strong> open bounties</li>
+          <li><strong>6</strong> active verifiers</li>
+        </ol>
+      </div>
+
+      <div class="sec">
+        <h3><span class="label">How to take part</span></h3>
+        <p style="margin:0;font-size:16px;line-height:1.55">
+          You can <a>read for free</a>, <a>write a lesson</a>, <a>become a verifier</a>, <a>back a wish</a>, or <a>weigh in on architecture</a>.<br><br>
+          No account needed for reading.
+        </p>
+      </div>
+    </aside>
+  </section>
+
+</div>
+
+<div class="footer">
+  © Contributors. Content licensed under CC BY-SA 4.0 · From an idea by <a>Sebastian Rey</a> · Static mockup
+</div>
+
+</body>
+</html>

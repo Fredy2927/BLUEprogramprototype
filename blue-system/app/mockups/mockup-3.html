@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>B.L.U.E. — Mockup 3 · GOV.UK Plain Language</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<style>
+  /* ===== GOV.UK / NHS.uk inspired — calm, plain, trustworthy ===== */
+  :root {
+    --bg: #ffffff;
+    --canvas: #f3f2f1;
+    --border: #b1b4b6;
+    --border-soft: #d8d8d8;
+    --ink: #0b0c0c;       /* GOV.UK near-black */
+    --ink-soft: #383f43;
+    --muted: #626a6e;
+    --link: #1d70b8;      /* GOV.UK link blue */
+    --link-visited: #4c2c92;
+    --link-hover: #003078;
+    --green: #00703c;     /* GOV.UK green */
+    --yellow-bg: #fff7bf;
+    --yellow-border: #ffdd00;
+    --font: "GDS Transport", arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 19px; line-height: 1.45; }
+  a { color: var(--link); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.1em; }
+  a:hover { color: var(--link-hover); text-decoration-thickness: 3px; }
+  a:visited { color: var(--link-visited); }
+  a:focus { background: var(--yellow-border); color: var(--ink); outline: 3px solid var(--yellow-border); }
+
+  /* Top black bar */
+  .top-strap { background: var(--ink); color: #fff; padding: 8px 0; }
+  .container { max-width: 960px; margin: 0 auto; padding: 0 30px; }
+  .top-strap .container { display: flex; align-items: center; gap: 14px; }
+  .crown { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; }
+  .crown .dot { color: #1d70b8; }
+  .top-strap .spacer { flex: 1; }
+  .top-strap a { color: #fff; font-size: 14px; text-decoration: none; }
+  .top-strap a:hover { text-decoration: underline; }
+
+  /* Sub-bar */
+  .sub-strap { background: var(--bg); border-bottom: 1px solid var(--border-soft); padding: 14px 0; }
+  .sub-strap .container { display: flex; align-items: center; gap: 14px; }
+  .service-name { font-size: 19px; font-weight: 700; }
+  .service-tag { color: var(--ink-soft); font-size: 16px; }
+
+  /* Phase banner */
+  .phase-banner { background: var(--bg); border-bottom: 1px solid var(--border-soft); padding: 10px 0; }
+  .phase-banner .container { display: flex; align-items: center; gap: 12px; font-size: 16px; }
+  .phase-tag { background: var(--link); color: #fff; font-size: 12px; font-weight: 700; padding: 3px 10px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* Main */
+  main { padding: 40px 0 80px; }
+
+  h1 { font-size: 48px; font-weight: 700; line-height: 1.1; letter-spacing: -0.01em; margin: 0 0 24px; }
+  h2 { font-size: 32px; font-weight: 700; line-height: 1.15; margin: 40px 0 14px; }
+  h3 { font-size: 24px; font-weight: 700; margin: 24px 0 10px; }
+  p { margin: 0.6em 0; max-width: 30em; /* GOV.UK rule: 30em max */ }
+  ul, ol { padding-left: 1.4em; max-width: 30em; }
+  ul li, ol li { margin: 0.4em 0; }
+
+  .lead { font-size: 24px; line-height: 1.4; color: var(--ink); margin: 0 0 28px; max-width: 30em; }
+
+  /* Section summary box */
+  .summary {
+    background: var(--canvas);
+    border-left: 8px solid var(--ink);
+    padding: 16px 22px;
+    margin: 18px 0 28px;
+    max-width: 36em;
+  }
+  .summary p { margin: 0; font-size: 19px; font-weight: 700; }
+  .summary .small-tag { display: block; font-size: 14px; color: var(--muted); font-weight: 400; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+
+  /* Task list (GOV.UK pattern) */
+  .task-list { list-style: none; padding: 0; max-width: none; }
+  .task-list > li { padding: 18px 0; border-bottom: 1px solid var(--border-soft); display: flex; gap: 20px; align-items: baseline; max-width: none; }
+  .task-list .tn { font-size: 22px; font-weight: 700; min-width: 30px; }
+  .task-list .tt { font-size: 20px; }
+  .task-list .tt strong { display: block; }
+  .task-list .tt .td { font-size: 16px; color: var(--ink-soft); margin-top: 4px; max-width: 36em; }
+  .task-list .ts { margin-left: auto; }
+
+  .tag {
+    display: inline-block; font-size: 14px; font-weight: 700;
+    padding: 4px 10px; text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .tag.done { background: var(--green); color: #fff; }
+  .tag.todo { background: var(--canvas); color: var(--ink); border: 2px solid var(--ink); }
+  .tag.now { background: var(--yellow-border); color: var(--ink); }
+
+  /* Inset text */
+  .inset {
+    border-left: 10px solid var(--border);
+    padding: 6px 18px;
+    margin: 18px 0;
+    max-width: 30em;
+  }
+  .inset p { font-size: 19px; }
+
+  /* Big button */
+  .gov-button {
+    display: inline-block; background: var(--green); color: #fff !important;
+    padding: 12px 22px; font-weight: 700; font-size: 19px;
+    text-decoration: none; box-shadow: 0 2px 0 #002d18;
+    margin: 18px 0;
+  }
+  .gov-button:hover { background: #005a30; }
+
+  /* Two-column related */
+  .related {
+    border-top: 2px solid var(--link);
+    padding-top: 16px;
+    margin-top: 40px;
+  }
+  .related h2 { font-size: 24px; margin: 0 0 10px; }
+  .related ul { list-style: none; padding: 0; }
+  .related li { padding: 6px 0; border-bottom: 1px solid var(--border-soft); max-width: none; }
+  .related a { font-size: 19px; }
+
+  /* Footer */
+  footer {
+    background: var(--canvas);
+    border-top: 10px solid var(--link);
+    padding: 30px 0;
+    margin-top: 60px;
+  }
+  footer .container { font-size: 16px; }
+  footer h3 { font-size: 16px; font-weight: 700; margin: 0 0 8px; }
+  footer ul { list-style: none; padding: 0; margin: 0; columns: 3; }
+  footer li { padding: 4px 0; max-width: none; }
+
+  /* Plain-language tags inline */
+  .plain-flag {
+    background: var(--yellow-bg);
+    border: 2px solid var(--yellow-border);
+    padding: 12px 16px;
+    margin: 14px 0;
+    max-width: 36em;
+    font-size: 18px;
+  }
+  .plain-flag strong { display: block; margin-bottom: 4px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+</style>
+</head>
+<body>
+
+<div class="top-strap">
+  <div class="container">
+    <span class="crown">b<span class="dot">.</span>l<span class="dot">.</span>u<span class="dot">.</span>e</span>
+    <div class="spacer"></div>
+    <a>Your account</a>
+    <a>Sign in</a>
+  </div>
+</div>
+
+<div class="sub-strap">
+  <div class="container">
+    <span class="service-name">Learn how to do anything</span>
+    <span class="service-tag">— the free skills encyclopedia</span>
+  </div>
+</div>
+
+<div class="phase-banner">
+  <div class="container">
+    <span class="phase-tag">Beta</span>
+    <span>This is a new service. <a>Your feedback</a> will help us improve it.</span>
+  </div>
+</div>
+
+<main>
+  <div class="container">
+
+    <h1>Learn how to do anything</h1>
+
+    <p class="lead">B.L.U.E. is a free encyclopedia of practical skills. Anyone can read a lesson. Anyone can write one. People who know the topic check every lesson before it goes up.</p>
+
+    <a class="gov-button">Find a lesson →</a>
+
+    <h2>Pick a subject to start</h2>
+
+    <ul class="task-list">
+      <li>
+        <span class="tn">1</span>
+        <div class="tt">
+          <strong>Electronics</strong>
+          <div class="td">Learn how to build circuits, from a single switch to a working computer chip.</div>
+        </div>
+        <span class="ts"><span class="tag done">6 lessons</span></span>
+      </li>
+      <li>
+        <span class="tn">2</span>
+        <div class="tt">
+          <strong>Woodworking</strong>
+          <div class="td">Learn how to join, shape and finish pieces of wood.</div>
+        </div>
+        <span class="ts"><span class="tag done">2 lessons</span></span>
+      </li>
+      <li>
+        <span class="tn">3</span>
+        <div class="tt">
+          <strong>Bicycles</strong>
+          <div class="td">Learn how to fix, maintain or build your own bicycle.</div>
+        </div>
+        <span class="ts"><span class="tag todo">No lessons yet</span></span>
+      </li>
+      <li>
+        <span class="tn">4</span>
+        <div class="tt">
+          <strong>Homebrewing</strong>
+          <div class="td">Learn how to brew your own beer at home, from a basic kit to a full grain brew.</div>
+        </div>
+        <span class="ts"><span class="tag todo">No lessons yet</span></span>
+      </li>
+    </ul>
+
+    <h2>How it works</h2>
+
+    <div class="summary">
+      <span class="small-tag">In one sentence</span>
+      <p>Anyone can write a lesson, but it only goes up if 5 people who know the topic agree it is clear and correct.</p>
+    </div>
+
+    <h3>1. Pick a lesson and read</h3>
+    <p>All lessons are sorted by how hard they are: easy, medium, harder, expert. Hard lessons tell you which easy ones to read first.</p>
+
+    <h3>2. Or write your own</h3>
+    <p>If you know how to do something well, write a lesson about it. You don't need to be an expert. You just need to be clear.</p>
+
+    <h3>3. Or help check what others write</h3>
+    <p>If you know a topic well, you can apply to be a "checker". When someone writes a new lesson in your topic, you read it and vote on whether it is ready to be published. You must explain your vote in writing.</p>
+
+    <div class="plain-flag">
+      <strong>What this means in plain English</strong>
+      Lessons get checked by real people who know the subject. Not by a computer. Not by one boss. By a small group, the way a jury works.
+    </div>
+
+    <h2>What's happening right now</h2>
+
+    <ul class="task-list">
+      <li>
+        <span class="tn">📝</span>
+        <div class="tt">
+          <strong>Build a 4-bit ALU from NAND gates</strong>
+          <div class="td">A Level 3 lesson submitted by @you. 5 checkers are reading it. Deadline in 5 days.</div>
+        </div>
+        <span class="ts"><span class="tag now">In review</span></span>
+      </li>
+      <li>
+        <span class="tn">🌟</span>
+        <div class="tt">
+          <strong>Lesson wished for: How to make a flip-flop</strong>
+          <div class="td">The community has pledged 240 of 300 points. The first person to write this lesson gets a bonus.</div>
+        </div>
+        <span class="ts"><span class="tag now">Wish open</span></span>
+      </li>
+      <li>
+        <span class="tn">💡</span>
+        <div class="tt">
+          <strong>Vote open: Should harder lessons need more checkers?</strong>
+          <div class="td">RFC-003. Currently 9 for, 6 against. Voting closes in 9 days.</div>
+        </div>
+        <span class="ts"><span class="tag now">Vote open</span></span>
+      </li>
+    </ul>
+
+    <div class="related">
+      <h2>Related</h2>
+      <ul>
+        <li><a>Read our policies</a></li>
+        <li><a>How decisions get made</a></li>
+        <li><a>How to be a good checker</a></li>
+        <li><a>How to apply to be a moderator</a></li>
+        <li><a>Plain-language guidelines for lesson writers</a></li>
+      </ul>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <h3>About B.L.U.E.</h3>
+    <ul>
+      <li><a>How the site is run</a></li>
+      <li><a>How money is spent</a></li>
+      <li><a>Who the people are</a></li>
+      <li><a>How to contact us</a></li>
+      <li><a>Accessibility statement</a></li>
+      <li><a>Privacy</a></li>
+      <li><a>Terms of use</a></li>
+      <li><a>Cookies</a></li>
+      <li><a>Open source code</a></li>
+    </ul>
+    <p style="margin-top:24px;font-size:14px;color:var(--muted)">All content is © contributors and licensed under the Creative Commons Attribution-ShareAlike 4.0 licence. Based on an idea by Sebastian Rey.</p>
+  </div>
+</footer>
+
+</body>
+</html>

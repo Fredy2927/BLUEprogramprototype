@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>B.L.U.E. — Mockup 4 · MDN Layered Difficulty</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<style>
+  /* ===== MDN Web Docs / Britannica inspired ===== */
+  :root {
+    --bg: #ffffff;
+    --canvas: #f9f9fb;
+    --bg-side: #fafafa;
+    --border: #cdcdcd;
+    --border-soft: #e0e0e0;
+    --ink: #1b1b1b;
+    --ink-soft: #4d4d4d;
+    --muted: #6b6b6b;
+    --link: #0069c2;       /* MDN blue */
+    --link-visited: #6f42c1;
+    --accent-pink: #e91e63;
+    --beg-bg: #e6fff0; --beg-border: #16a34a; --beg-text: #065f46;
+    --med-bg: #e6f0ff; --med-border: #2563eb; --med-text: #1e40af;
+    --hard-bg: #fff7d6; --hard-border: #b58a00; --hard-text: #6b4a00;
+    --exp-bg: #ffe6e6; --exp-border: #c53030; --exp-text: #7c1d1d;
+    --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --serif: "Linux Libertine", Georgia, Times, serif;
+    --mono: ui-monospace, "JetBrains Mono", Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 16px; line-height: 1.55; }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  a:visited { color: var(--link-visited); }
+
+  /* Header */
+  .topbar { padding: 12px 24px; border-bottom: 1px solid var(--border-soft); display: flex; align-items: center; gap: 22px; background: var(--bg); }
+  .logo { font-weight: 800; font-size: 18px; letter-spacing: -0.02em; }
+  .logo .dot { color: var(--link); }
+  .nav { display: flex; gap: 18px; font-size: 14px; color: var(--ink-soft); font-weight: 500; }
+  .nav a { color: inherit; }
+  .nav a.active { color: var(--ink); }
+  .spacer { flex: 1; }
+  .search { width: 320px; padding: 7px 12px; border: 2px solid var(--border-soft); border-radius: 4px; background: var(--bg); color: var(--muted); font-size: 14px; }
+
+  /* Layout */
+  .layout { display: grid; grid-template-columns: 260px 1fr 240px; max-width: 1320px; margin: 0 auto; padding: 28px; gap: 32px; }
+  @media (max-width: 1100px) { .layout { grid-template-columns: 260px 1fr; } .rrail { display: none; } }
+  @media (max-width: 800px) { .layout { grid-template-columns: 1fr; padding: 20px; } .sidebar { display: none; } }
+
+  /* Sidebar */
+  .sidebar { font-size: 14px; }
+  .sidebar h4 { font-size: 12px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin: 22px 0 8px; padding-bottom: 4px; border-bottom: 1px solid var(--border-soft); }
+  .sidebar h4:first-child { margin-top: 0; }
+  .sidebar ul { list-style: none; padding: 0; margin: 0; }
+  .sidebar li { padding: 3px 0; }
+  .sidebar a { color: var(--ink-soft); padding: 4px 10px; margin-left: -10px; display: block; border-radius: 4px; }
+  .sidebar a:hover { background: var(--canvas); }
+  .sidebar a.active { color: var(--link); background: #eaf3ff; font-weight: 600; }
+  .sidebar .ind { padding-left: 18px; }
+
+  /* Main */
+  .main h1 { font-size: 38px; line-height: 1.15; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 8px; }
+  .main .desc { font-size: 18px; color: var(--ink-soft); margin: 0 0 24px; max-width: 65ch; line-height: 1.5; }
+  .main h2 { font-size: 24px; font-weight: 600; margin: 36px 0 10px; padding-bottom: 6px; border-bottom: 2px solid var(--border-soft); }
+  .main h3 { font-size: 18px; font-weight: 600; margin: 24px 0 8px; }
+  .main p { margin: 0.6em 0; max-width: 70ch; }
+
+  /* Layered difficulty (THE star feature) */
+  .layer-stack {
+    border: 1px solid var(--border-soft); border-radius: 6px;
+    margin: 14px 0 28px; max-width: 75ch; overflow: hidden;
+  }
+  .layer { display: grid; grid-template-columns: 160px 1fr; border-bottom: 1px solid var(--border-soft); }
+  .layer:last-child { border-bottom: 0; }
+  .layer-side { padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; }
+  .layer-tag {
+    display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 12px;
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .layer-who { font-size: 12px; color: var(--muted); line-height: 1.35; }
+  .layer-body { padding: 16px 20px; font-size: 15px; line-height: 1.6; }
+  .layer-body p { margin: 0; max-width: none; }
+
+  .layer.beg .layer-side { background: var(--beg-bg); border-right: 3px solid var(--beg-border); }
+  .layer.beg .layer-tag { background: var(--beg-border); color: #fff; }
+  .layer.med .layer-side { background: var(--med-bg); border-right: 3px solid var(--med-border); }
+  .layer.med .layer-tag { background: var(--med-border); color: #fff; }
+  .layer.hard .layer-side { background: var(--hard-bg); border-right: 3px solid var(--hard-border); }
+  .layer.hard .layer-tag { background: var(--hard-border); color: #fff; }
+  .layer.exp .layer-side { background: var(--exp-bg); border-right: 3px solid var(--exp-border); }
+  .layer.exp .layer-tag { background: var(--exp-border); color: #fff; }
+
+  /* Inline glossary */
+  .gloss { border-bottom: 1.5px dotted var(--link); color: var(--link); cursor: help; }
+  .gloss-defs { margin: 12px 0; padding: 10px 14px; background: var(--canvas); border-left: 3px solid var(--link); border-radius: 0 4px 4px 0; font-size: 13px; max-width: 65ch; }
+  .gloss-defs dt { font-weight: 700; color: var(--ink); margin-top: 6px; }
+  .gloss-defs dt:first-child { margin-top: 0; }
+  .gloss-defs dd { margin: 2px 0 6px 0; color: var(--ink-soft); }
+
+  /* Featured grid */
+  .feat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin: 18px 0 28px; }
+  .feat { border: 1px solid var(--border-soft); border-radius: 6px; padding: 16px 18px; }
+  .feat:hover { border-color: var(--link); }
+  .feat .ftag { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+  .feat .ftitle { font-size: 16px; font-weight: 600; margin: 6px 0 4px; color: var(--ink); }
+  .feat .fdesc { font-size: 13px; color: var(--ink-soft); }
+  .feat .fmeta { font-size: 12px; color: var(--muted); margin-top: 10px; }
+
+  /* Difficulty pills inline */
+  .lp { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-right: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .lp.beg { background: var(--beg-bg); color: var(--beg-text); }
+  .lp.med { background: var(--med-bg); color: var(--med-text); }
+  .lp.hard { background: var(--hard-bg); color: var(--hard-text); }
+  .lp.exp { background: var(--exp-bg); color: var(--exp-text); }
+
+  /* Right rail */
+  .rrail { font-size: 13px; position: sticky; top: 24px; align-self: start; }
+  .rrail h5 { font-size: 11px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 8px; }
+  .rrail ol { list-style: none; padding-left: 0; margin: 0; }
+  .rrail li { padding: 3px 0; }
+  .rrail a { color: var(--ink-soft); display: block; padding: 4px 8px; margin-left: -8px; border-radius: 4px; }
+  .rrail a.active { color: var(--link); background: #eaf3ff; font-weight: 600; border-left: 3px solid var(--link); }
+
+  /* Footer */
+  .footer { border-top: 1px solid var(--border-soft); padding: 24px; text-align: center; color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="logo">B.L.U.E<span class="dot">.</span></div>
+  <nav class="nav">
+    <a class="active">Lessons</a>
+    <a>References</a>
+    <a>Contribute</a>
+    <a>Community</a>
+  </nav>
+  <div class="spacer"></div>
+  <input class="search" placeholder="Search the encyclopedia…" />
+</header>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <h4>Welcome</h4>
+    <ul>
+      <li><a class="active">What is B.L.U.E.?</a></li>
+      <li><a>How to read a lesson</a></li>
+      <li><a>How lessons are checked</a></li>
+      <li><a>How to write one</a></li>
+    </ul>
+    <h4>Subjects</h4>
+    <ul>
+      <li><a>Electronics</a></li>
+      <li class="ind"><a>Digital</a></li>
+      <li class="ind"><a>Logic gates</a></li>
+      <li class="ind"><a>CPU design</a></li>
+      <li class="ind"><a>Analog</a></li>
+      <li class="ind"><a>Power supplies</a></li>
+      <li><a>Woodworking</a></li>
+      <li class="ind"><a>Joining pieces</a></li>
+      <li><a>Bicycles</a></li>
+      <li><a>Homebrewing</a></li>
+    </ul>
+    <h4>Reference</h4>
+    <ul>
+      <li><a>Glossary</a></li>
+      <li><a>Style guide</a></li>
+      <li><a>Verifier handbook</a></li>
+      <li><a>Citation guide</a></li>
+    </ul>
+    <h4>Community</h4>
+    <ul>
+      <li><a>Forum</a></li>
+      <li><a>Bounties</a></li>
+      <li><a>RFCs</a></li>
+      <li><a>Helpers &amp; jobs</a></li>
+    </ul>
+  </aside>
+
+  <main class="main">
+
+    <h1>What is B.L.U.E.?</h1>
+    <p class="desc">A free encyclopedia of practical skills. Every concept is explained at four difficulty levels so you can read the version that matches what you already know.</p>
+
+    <h2>How does this site work?</h2>
+
+    <div class="layer-stack">
+      <div class="layer beg">
+        <div class="layer-side">
+          <span class="layer-tag">Beginner</span>
+          <span class="layer-who">For anyone, no background needed</span>
+        </div>
+        <div class="layer-body">
+          <p>It's a website with lots of how-to guides. People write them. Other people check them. Then you can read them for free.</p>
+        </div>
+      </div>
+      <div class="layer med">
+        <div class="layer-side">
+          <span class="layer-tag">School level</span>
+          <span class="layer-who">If you've finished school</span>
+        </div>
+        <div class="layer-body">
+          <p>B.L.U.E. is a community-built encyclopedia that teaches practical, step-by-step skills. Anyone can write a lesson. Before it goes up, five people who know the subject read it and vote on whether it's good enough.</p>
+        </div>
+      </div>
+      <div class="layer hard">
+        <div class="layer-side">
+          <span class="layer-tag">Hobbyist</span>
+          <span class="layer-who">If you do this kind of thing for fun</span>
+        </div>
+        <div class="layer-body">
+          <p>Lessons are organised into a strict prerequisite hierarchy (Levels 1–4). Each lesson has alternate "methods" the community can propose and vote on. A jury of randomly-selected verifiers reviews submissions; majority decision publishes, with mandatory written justification.</p>
+        </div>
+      </div>
+      <div class="layer exp">
+        <div class="layer-side">
+          <span class="layer-tag">Specialist</span>
+          <span class="layer-who">If you build this kind of system</span>
+        </div>
+        <div class="layer-body">
+          <p>Distributed editorial governance via odd-cardinality jury (default n=5, scaled by RFC-003), reputation-weighted verifier selection, CC BY-SA 4.0 content licence, cross-niche conflict resolution via fork/spin-off, architecture decisions ratified via two-week supermajority RFC vote, monetisation via topically-scoped affiliate links only.</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>Construction: how a lesson is born</h2>
+
+    <p>The author writes the lesson and declares its <span class="gloss">prerequisites</span>, then submits it for <span class="gloss">verification</span>. A <span class="gloss">jury</span> of verifiers in the relevant subject is chosen at random. Each verifier must vote with a written justification. Once a majority is reached, the lesson is either published or returned to the author for revision.</p>
+
+    <dl class="gloss-defs">
+      <dt>prerequisites</dt>
+      <dd>The easier lessons a reader should already understand before starting this one. In plain words: <em>"What you need to learn first."</em></dd>
+      <dt>verification</dt>
+      <dd>The community process of checking a new lesson is correct and clear. In plain words: <em>"Other people read it and decide if it's good."</em></dd>
+      <dt>jury</dt>
+      <dd>A small group (usually five) of randomly-selected verifiers who vote on a single submission. In plain words: <em>"A team picked at random, like at a courtroom."</em></dd>
+    </dl>
+
+    <h2>What you can do here</h2>
+
+    <div class="feat-grid">
+      <div class="feat">
+        <div class="ftag">For new readers</div>
+        <div class="ftitle">Read a lesson</div>
+        <div class="fdesc">Browse subjects by difficulty. Start with <span class="lp beg">Beginner</span> and climb up.</div>
+        <div class="fmeta">No account needed</div>
+      </div>
+      <div class="feat">
+        <div class="ftag">For writers</div>
+        <div class="ftitle">Teach what you know</div>
+        <div class="fdesc">Write a lesson on a topic you understand well. The community will help polish it.</div>
+        <div class="fmeta">Bonus points for fulfilling wishes</div>
+      </div>
+      <div class="feat">
+        <div class="ftag">For experts</div>
+        <div class="ftitle">Become a verifier</div>
+        <div class="fdesc">Pass a subject exam, then help check new lessons in your field.</div>
+        <div class="fmeta">Roles per subject &amp; per level</div>
+      </div>
+      <div class="feat">
+        <div class="ftag">For organisers</div>
+        <div class="ftitle">Shape governance</div>
+        <div class="fdesc">Vote on Requests for Comment (RFCs) that decide how the site evolves.</div>
+        <div class="fmeta">5+ reputation to open an RFC</div>
+      </div>
+    </div>
+
+    <h2>Featured lessons</h2>
+
+    <div class="feat-grid">
+      <div class="feat">
+        <span class="lp beg">Beginner</span>
+        <div class="ftitle">Build a BJT</div>
+        <div class="fdesc">A three-terminal silicon switch — the foundational component of all digital logic.</div>
+        <div class="fmeta">8 min read · 1,247 found helpful</div>
+      </div>
+      <div class="feat">
+        <span class="lp med">School level</span>
+        <div class="ftitle">Build a NAND gate from BJTs</div>
+        <div class="fdesc">The universal logic gate. Every Boolean function can be built from NANDs.</div>
+        <div class="fmeta">12 min read · 412 found helpful</div>
+      </div>
+      <div class="feat">
+        <span class="lp hard">Hobbyist</span>
+        <div class="ftitle">Build a 4-bit ALU</div>
+        <div class="fdesc">The arithmetic core of a classical CPU, built from ~74 NAND gates.</div>
+        <div class="fmeta">18 min read · being checked</div>
+      </div>
+    </div>
+
+  </main>
+
+  <aside class="rrail">
+    <h5>On this page</h5>
+    <ol>
+      <li><a class="active">What is B.L.U.E.?</a></li>
+      <li><a>How does it work?</a></li>
+      <li><a>How a lesson is born</a></li>
+      <li><a>What you can do</a></li>
+      <li><a>Featured lessons</a></li>
+    </ol>
+    <h5 style="margin-top:24px">Last updated</h5>
+    <p style="font-size:12px;color:var(--muted)">19 May 2026 by @kira</p>
+    <h5 style="margin-top:18px">Was this helpful?</h5>
+    <p style="font-size:12px;color:var(--muted)">👍 1,247 &nbsp; 👎 9</p>
+  </aside>
+
+</div>
+
+<div class="footer">
+  CC BY-SA 4.0 · From an idea by Sebastian Rey · Static mockup
+</div>
+
+</body>
+</html>

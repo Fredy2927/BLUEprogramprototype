@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>B.L.U.E. — How to make a resistor</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<style>
+  /* =====================================================
+     B.L.U.E. — STATIC MOCKUP
+     "How to make a resistor" — populated example
+     Shows all four difficulty levels in one article.
+
+     NO buttons, NO JavaScript, NO interactivity.
+     ===================================================== */
+
+  :root {
+    --bg: #ffffff;
+    --chrome: #f8f9fa;          /* Wikipedia grey */
+    --chrome-2: #eaecf0;
+    --border: #c8ccd1;
+    --border-soft: #eaecf0;
+    --ink: #202122;
+    --ink-soft: #54595d;
+    --muted: #72777d;
+    --link: #36c;
+    --link-visited: #795cb2;
+    --link-red: #d33;
+    --rule: #a2a9b1;
+
+    --simple-bg: #e8f4fb;
+    --simple-border: #4b8bbe;
+    --tldr-bg: #fef6e7;
+    --tldr-border: #c48f00;
+    --advanced-bg: #f4edff;
+    --advanced-border: #7a5cb0;
+
+    /* Level colours (Patterns 4) */
+    --lev1-bg: #e8f6ee; --lev1-bd: #2f855a;
+    --lev2-bg: #e8f0fb; --lev2-bd: #2c5282;
+    --lev3-bg: #fdf3d8; --lev3-bd: #8a6500;
+    --lev4-bg: #fbe7e8; --lev4-bd: #9b2c2c;
+
+    --serif: "Linux Libertine", "Georgia", "Times New Roman", Times, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  a:visited { color: var(--link-visited); }
+  a.redlink, a.redlink:visited { color: var(--link-red); }
+
+  /* ============ HEADER ============ */
+  .topbar {
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 24px;
+    display: flex; align-items: center; gap: 24px;
+  }
+  .logo { display: flex; align-items: baseline; gap: 10px; }
+  .logo-mark {
+    font-family: var(--serif); font-style: italic;
+    font-size: 26px; color: var(--ink); line-height: 1;
+  }
+  .logo-mark .b { color: var(--link); }
+  .logo-tag {
+    font-size: 12px; color: var(--muted);
+    font-variant: small-caps; letter-spacing: 0.5px;
+  }
+  .spacer { flex: 1; }
+  .top-search {
+    width: 320px; padding: 6px 10px;
+    border: 1px solid var(--border); border-radius: 2px;
+    background: var(--chrome); color: var(--muted); font-size: 13px;
+  }
+  .top-search::before { content: "Search B.L.U.E."; }
+  .header-links { font-size: 13px; color: var(--link); }
+  .header-links span { margin: 0 8px; }
+
+  /* ============ TABS ============ */
+  .tabbar {
+    background: var(--chrome);
+    border-bottom: 1px solid var(--border-soft);
+    padding: 0 24px;
+    display: flex; font-size: 13px;
+  }
+  .tabbar .tab {
+    padding: 8px 14px;
+    border-right: 1px solid var(--border-soft);
+    color: var(--link);
+  }
+  .tabbar .tab.active {
+    background: var(--bg); color: var(--ink); font-weight: 600;
+    border-top: 2px solid var(--link); padding-top: 6px;
+    margin-bottom: -1px;
+  }
+
+  /* ============ LAYOUT ============ */
+  .layout {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 16px 24px 60px;
+    gap: 24px;
+  }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+  }
+
+  /* ============ SIDEBAR ============ */
+  .sidebar { font-size: 12px; }
+  .sidebar h4 {
+    font-size: 11px; color: var(--muted); font-weight: 400;
+    margin: 16px 0 4px;
+    border-bottom: 1px solid var(--border-soft); padding-bottom: 3px;
+  }
+  .sidebar ul { list-style: none; padding: 0; margin: 0; }
+  .sidebar li { padding: 2px 0; line-height: 1.4; }
+  .sidebar a { color: var(--link); }
+
+  /* ============ ARTICLE BODY ============ */
+  .article h1.firstHeading {
+    font-family: var(--serif);
+    font-size: 28px; font-weight: 400; line-height: 1.3;
+    margin: 0 0 4px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .article .subtitle {
+    font-size: 13px; color: var(--muted); font-style: italic;
+    margin: 0 0 18px;
+  }
+  .article h2 {
+    font-family: var(--serif); font-weight: 400; font-size: 22px;
+    border-bottom: 1px solid var(--border-soft);
+    padding-bottom: 4px; margin: 28px 0 12px;
+  }
+  .article h3 {
+    font-family: var(--serif); font-weight: 600; font-size: 17px;
+    margin: 18px 0 6px;
+  }
+  .article p { margin: 0.6em 0; max-width: 70ch; }
+  .article ul, .article ol { padding-left: 1.6em; max-width: 70ch; }
+  .article li { margin: 0.3em 0; }
+
+  /* ============ INFOBOX ============ */
+  .infobox {
+    float: right;
+    width: 290px;
+    margin: 0 0 14px 24px;
+    border: 1px solid var(--border);
+    background: var(--chrome);
+    font-size: 13px;
+  }
+  .infobox-title {
+    background: var(--chrome-2);
+    padding: 8px 10px; text-align: center;
+    font-family: var(--serif); font-weight: 600; font-size: 15px;
+    border-bottom: 1px solid var(--border);
+  }
+  .infobox table { width: 100%; border-collapse: collapse; }
+  .infobox th, .infobox td {
+    padding: 5px 9px; border-bottom: 1px solid var(--border-soft);
+    text-align: left; vertical-align: top; font-weight: 400;
+  }
+  .infobox th { color: var(--muted); width: 110px; font-weight: 600; font-size: 12px; }
+  .infobox tr:last-child th, .infobox tr:last-child td { border-bottom: 0; }
+  @media (max-width: 700px) {
+    .infobox { float: none; width: 100%; margin: 0 0 14px; }
+  }
+
+  /* ============ HATNOTE ============ */
+  .hatnote {
+    padding: 4px 0 4px 30px;
+    font-style: italic; font-size: 13px; color: var(--ink-soft);
+    margin-bottom: 10px;
+  }
+
+  /* ============ "IN PLAIN WORDS" LEAD ============ */
+  .plain-words {
+    background: var(--simple-bg);
+    border: 1px solid var(--simple-border);
+    border-left-width: 5px;
+    padding: 14px 18px;
+    margin: 14px 0 20px;
+    border-radius: 3px;
+    max-width: 70ch;
+  }
+  .plain-words .label {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 700;
+    color: var(--simple-border); text-transform: uppercase;
+    letter-spacing: 0.05em; margin-bottom: 8px;
+  }
+  .plain-words p { margin: 0.3em 0; font-size: 16px; line-height: 1.6; }
+
+  /* ============ "IN SHORT" / TL;DR ============ */
+  .in-short {
+    background: var(--tldr-bg);
+    border: 1px solid var(--tldr-border);
+    border-radius: 3px;
+    padding: 12px 16px;
+    margin: 14px 0; max-width: 70ch;
+  }
+  .in-short .label {
+    font-size: 11px; font-weight: 700; color: var(--tldr-border);
+    text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;
+  }
+  .in-short ul { margin: 4px 0 0; padding-left: 22px; max-width: none; }
+  .in-short li { padding: 2px 0; font-size: 14px; }
+
+  /* ============ LAYERED DIFFICULTY (Level 1–4) ============ */
+  .layer-stack {
+    border: 1px solid var(--border); border-radius: 3px;
+    margin: 14px 0; max-width: 72ch;
+    background: var(--bg);
+  }
+  .layer {
+    display: grid; grid-template-columns: 140px 1fr;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .layer:last-child { border-bottom: 0; }
+  .layer-tag {
+    padding: 14px 14px; font-size: 13px;
+    border-right: 1px solid var(--border-soft);
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .layer-tag .lev { font-weight: 700; color: var(--ink); }
+  .layer-tag .who { font-size: 11px; color: var(--muted); line-height: 1.35; }
+  .layer-tag .time { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .layer-body { padding: 14px 18px; font-size: 14px; line-height: 1.65; }
+  .layer-body p { margin: 0.4em 0; max-width: none; }
+  .layer-body ul, .layer-body ol { max-width: none; padding-left: 1.4em; margin: 0.4em 0; }
+  .layer.lev-1 .layer-tag { background: var(--lev1-bg); border-right-color: var(--lev1-bd); }
+  .layer.lev-2 .layer-tag { background: var(--lev2-bg); border-right-color: var(--lev2-bd); }
+  .layer.lev-3 .layer-tag { background: var(--lev3-bg); border-right-color: var(--lev3-bd); }
+  .layer.lev-4 .layer-tag { background: var(--lev4-bg); border-right-color: var(--lev4-bd); }
+  .layer.lev-1 .layer-tag .lev { color: var(--lev1-bd); }
+  .layer.lev-2 .layer-tag .lev { color: var(--lev2-bd); }
+  .layer.lev-3 .layer-tag .lev { color: var(--lev3-bd); }
+  .layer.lev-4 .layer-tag .lev { color: var(--lev4-bd); }
+
+  @media (max-width: 700px) {
+    .layer { grid-template-columns: 1fr; }
+    .layer-tag { border-right: 0; border-bottom: 1px solid var(--border-soft); padding: 10px 12px; }
+  }
+
+  /* ============ GLOSSARY ============ */
+  .gloss {
+    border-bottom: 1.5px dotted var(--link);
+    color: var(--link); cursor: help;
+  }
+  .gloss-def {
+    display: block; margin-top: 6px;
+    background: var(--chrome);
+    border-left: 3px solid var(--link);
+    padding: 8px 12px;
+    font-size: 13px; color: var(--ink-soft);
+    border-radius: 0 3px 3px 0;
+    max-width: 65ch;
+  }
+  .gloss-def .term {
+    font-weight: 700; color: var(--ink); margin-right: 6px;
+  }
+
+  /* ============ TOC ============ */
+  .toc {
+    background: var(--chrome); border: 1px solid var(--border-soft);
+    padding: 8px 14px; margin: 14px 0;
+    font-size: 13px; display: inline-block; min-width: 260px;
+  }
+  .toc-title {
+    font-weight: 700; text-align: center; padding-bottom: 4px;
+    border-bottom: 1px solid var(--border-soft); margin-bottom: 6px;
+    font-size: 12px; color: var(--ink-soft);
+  }
+  .toc ol { list-style: none; padding-left: 0; margin: 0; counter-reset: toc; max-width: none; }
+  .toc ol ol { padding-left: 18px; }
+  .toc li { counter-increment: toc; padding: 1px 0; margin: 0; }
+  .toc li::before { content: counters(toc, ".") " "; color: var(--muted); margin-right: 4px; }
+
+  /* ============ DID YOU KNOW ============ */
+  .did-you-know {
+    background: var(--chrome); border: 1px solid var(--border-soft);
+    padding: 14px 16px; margin: 14px 0; max-width: 70ch;
+  }
+  .did-you-know .label {
+    font-size: 12px; font-weight: 700; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;
+  }
+  .did-you-know .simple {
+    background: var(--simple-bg);
+    border-left: 3px solid var(--simple-border);
+    padding: 8px 12px; margin-top: 8px; font-size: 14px;
+    border-radius: 0 3px 3px 0;
+  }
+  .did-you-know .simple-label {
+    font-size: 11px; font-weight: 700; color: var(--simple-border);
+    text-transform: uppercase; letter-spacing: 0.05em; margin-right: 4px;
+  }
+  .did-you-know p { margin: 0.4em 0; }
+
+  /* ============ COLOUR-BAND DIAGRAM (resistor) ============ */
+  .resistor-diag {
+    background: var(--chrome); border: 1px solid var(--border-soft);
+    padding: 18px 20px; margin: 14px 0;
+    max-width: 70ch; text-align: center;
+  }
+  .resistor-body {
+    display: inline-flex; align-items: center; height: 60px;
+    margin: 8px 0;
+  }
+  .lead-wire { width: 36px; height: 3px; background: #6e7480; }
+  .res-tube {
+    display: inline-flex; align-items: center;
+    height: 60px; width: 200px;
+    background: #e8d8b8;
+    border-radius: 30px / 30px;
+    padding: 0 14px; gap: 6px;
+    box-shadow: inset 0 0 0 1px #b09870;
+    justify-content: center;
+  }
+  .band { width: 12px; height: 100%; }
+  .resistor-diag .caption {
+    font-size: 12px; color: var(--muted); margin-top: 6px;
+  }
+
+  /* ============ CATEGORIES ============ */
+  .categories {
+    border: 1px solid var(--border-soft);
+    background: var(--chrome);
+    padding: 6px 12px; margin-top: 32px; font-size: 13px;
+  }
+  .categories-label { color: var(--ink-soft); font-weight: 600; margin-right: 8px; }
+  .categories a { margin-right: 10px; }
+
+  /* ============ FOOTER ============ */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 20px 24px; text-align: center;
+    color: var(--muted); font-size: 12px; background: var(--chrome);
+  }
+
+  /* ============ STATIC NOTE ============ */
+  .mockup-note {
+    background: #fffae6;
+    border: 1px dashed #c48f00;
+    padding: 8px 14px; margin: 14px auto;
+    font-size: 13px; color: #654a00;
+    max-width: 1200px; text-align: center;
+  }
+
+  /* Table */
+  .article table.data {
+    border-collapse: collapse; margin: 14px 0; font-size: 14px;
+    border: 1px solid var(--border);
+  }
+  .article table.data th, .article table.data td {
+    border: 1px solid var(--border); padding: 6px 12px; text-align: left;
+  }
+  .article table.data th { background: var(--chrome); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="mockup-note">
+  📐 <strong>Static design mockup.</strong> No buttons, no JavaScript. Demonstrates the chosen layout on a real article — "How to make a resistor" — with all four difficulty levels populated.
+</div>
+
+<header class="topbar">
+  <div class="logo">
+    <span class="logo-mark"><span class="b">B</span>.L.U.E.</span>
+    <span class="logo-tag">the universal skills encyclopedia</span>
+  </div>
+  <div class="spacer"></div>
+  <div class="top-search"></div>
+  <div class="header-links">
+    <span><a>your page</a></span>
+    <span><a>read · edit · history</a></span>
+  </div>
+</header>
+
+<nav class="tabbar">
+  <div class="tab active">Article</div>
+  <div class="tab">Talk</div>
+  <div class="tab">Read</div>
+  <div class="tab">Edit</div>
+  <div class="tab">View history</div>
+</nav>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <h4>Navigation</h4>
+    <ul>
+      <li><a>Main page</a></li>
+      <li><a>All lessons</a></li>
+      <li><a>Random lesson</a></li>
+      <li><a>About B.L.U.E.</a></li>
+    </ul>
+    <h4>Subjects</h4>
+    <ul>
+      <li><a>Electronics</a></li>
+      <li style="padding-left:10px"><a>· Components</a></li>
+      <li style="padding-left:20px"><a>· · Resistors</a> <strong>(here)</strong></li>
+      <li style="padding-left:20px"><a>· · Capacitors</a></li>
+      <li style="padding-left:20px"><a>· · Inductors</a></li>
+      <li style="padding-left:10px"><a>· Digital</a></li>
+      <li style="padding-left:10px"><a>· Analog</a></li>
+      <li><a>Woodworking</a></li>
+      <li><a>Bicycles</a></li>
+      <li><a>Homebrewing</a></li>
+    </ul>
+    <h4>Contribute</h4>
+    <ul>
+      <li><a>Write a lesson</a></li>
+      <li><a>Become a verifier</a></li>
+      <li><a>Lesson wishes</a></li>
+    </ul>
+    <h4>Tools</h4>
+    <ul>
+      <li><a>Search</a></li>
+      <li><a>Recent changes</a></li>
+      <li><a>Cite this page</a></li>
+      <li><a>Printable version</a></li>
+      <li><a>Download as PDF</a></li>
+    </ul>
+    <h4>Languages</h4>
+    <ul>
+      <li><a>Español</a></li>
+      <li><a>Deutsch</a></li>
+      <li><a>日本語</a></li>
+      <li><a>Français</a></li>
+    </ul>
+  </aside>
+
+  <main class="article">
+
+    <div class="hatnote">For the unit of electrical resistance, see <a>Ohm</a>. For the artistic movement, see <a class="redlink">Resistance (art)</a>.</div>
+
+    <h1 class="firstHeading">How to make a resistor</h1>
+    <p class="subtitle">From B.L.U.E., the universal skills encyclopedia &nbsp;·&nbsp; Lesson in Electronics &nbsp;·&nbsp; 6 min read &nbsp;·&nbsp; Last updated 14 days ago</p>
+
+    <!-- ================ INFOBOX ================ -->
+    <div class="infobox">
+      <div class="infobox-title">Make a resistor</div>
+      <table>
+        <tr><th>Subject</th><td><a>Electronics &gt; Components</a></td></tr>
+        <tr><th>Difficulty</th><td>All four levels (see below)</td></tr>
+        <tr><th>Time needed</th><td>10 min → 1 day</td></tr>
+        <tr><th>Cost</th><td>£0.01 → £50</td></tr>
+        <tr><th>Status</th><td>Published</td></tr>
+        <tr><th>Authors</th><td><a>@kira</a> · <a>@otto</a> · <a>@mei</a></td></tr>
+        <tr><th>Last reviewed</th><td>14 days ago by 5 verifiers</td></tr>
+        <tr><th>Helpful votes</th><td>▲ 1,247 &nbsp; ▼ 14</td></tr>
+        <tr><th>Methods</th><td>4 documented (one per level)</td></tr>
+        <tr><th>Languages</th><td>EN, ES, DE, JA, FR</td></tr>
+        <tr><th>License</th><td>CC BY-SA 4.0</td></tr>
+      </table>
+    </div>
+
+    <!-- ================ PLAIN WORDS LEAD ================ -->
+    <div class="plain-words">
+      <div class="label">📘 In plain words</div>
+      <p>A <strong>resistor</strong> is a small part that slows down electricity. Imagine a wide pipe with water flowing through it — a resistor is like squeezing the pipe so less water gets through. They are used in almost every electronic thing: lights, radios, computers. This lesson shows you four ways to make one yourself, from a five-minute hack with a pencil all the way to growing one inside a silicon chip.</p>
+    </div>
+
+    <!-- ================ "IN SHORT" ================ -->
+    <div class="in-short">
+      <div class="label">⚡ In short</div>
+      <ul>
+        <li>A resistor is a passive two-terminal component that limits the flow of electric current.</li>
+        <li>Resistance is measured in <strong>ohms (Ω)</strong>. <strong>V = I × R</strong> (Ohm's Law).</li>
+        <li>This lesson covers four methods at four difficulty levels: pencil graphite, carbon-composition, wire-wound, and thin-film deposition.</li>
+        <li>No prerequisites for Level 1. Higher levels assume basic electronics knowledge.</li>
+        <li>You will be able to make a resistor with a value between 1 Ω and 10 MΩ.</li>
+      </ul>
+    </div>
+
+    <p>A <strong>resistor</strong> is a passive electrical component that implements electrical resistance as a circuit element. Resistors are used to reduce current flow, divide voltages, bias active elements, terminate transmission lines, and many other functions. Resistance is one of the three fundamental passive properties of any electrical component, alongside <a>capacitance</a> and <a>inductance</a>.</p>
+
+    <p>The resistance value R of a component is defined by Ohm's law, <strong>V = I × R</strong>, where V is the voltage applied across the component, I is the current flowing through it, and R is the resistance, measured in <a>ohms (Ω)</a>. The earliest known artificial resistor was a length of carbon filament made by <a>Thomas Edison</a> in 1879 for use in his incandescent lamp.</p>
+
+    <!-- ================ RESISTOR DIAGRAM ================ -->
+    <div class="resistor-diag">
+      <div class="resistor-body">
+        <span class="lead-wire"></span>
+        <span class="res-tube">
+          <span class="band" style="background:#8b4513"></span>
+          <span class="band" style="background:#000"></span>
+          <span class="band" style="background:#ff0000"></span>
+          <span class="band" style="background:#daa520"></span>
+        </span>
+        <span class="lead-wire"></span>
+      </div>
+      <div class="caption">A through-hole carbon-composition resistor. Bands brown-black-red-gold encode <strong>1 kΩ ± 5%</strong>.</div>
+    </div>
+
+    <!-- ================ TOC ================ -->
+    <div class="toc">
+      <div class="toc-title">Contents</div>
+      <ol>
+        <li><a>How it works (at four levels)</a></li>
+        <li><a>Ways to make one</a>
+          <ol>
+            <li><a>Level 1 — The pencil trick</a></li>
+            <li><a>Level 2 — Carbon-composition resistor</a></li>
+            <li><a>Level 3 — Wire-wound precision resistor</a></li>
+            <li><a>Level 4 — Thin-film deposition</a></li>
+          </ol>
+        </li>
+        <li><a>How to read the colour bands</a></li>
+        <li><a>How to check it works</a></li>
+        <li><a>See also</a></li>
+        <li><a>References</a></li>
+      </ol>
+    </div>
+
+    <!-- ================ HOW IT WORKS — LAYERED ================ -->
+    <h2>How it works (at four levels)</h2>
+    <p>Click the level that matches what you already know. Each level explains the same idea — just in deeper language.</p>
+
+    <div class="layer-stack">
+      <div class="layer lev-1">
+        <div class="layer-tag">
+          <span class="lev">Level 1</span>
+          <span class="who">For anyone, even kids</span>
+          <span class="time">read: 30 sec</span>
+        </div>
+        <div class="layer-body">
+          <p>Electricity is a bit like water flowing through a hose. A resistor is like pinching the hose with your fingers — less water gets through. The harder you pinch, the less gets through. That's all a resistor does: it pinches the flow of electricity.</p>
+        </div>
+      </div>
+      <div class="layer lev-2">
+        <div class="layer-tag">
+          <span class="lev">Level 2</span>
+          <span class="who">School-level science</span>
+          <span class="time">read: 1 min</span>
+        </div>
+        <div class="layer-body">
+          <p>When electric current flows through a material, the electrons bump into atoms and lose some energy as heat. Some materials let electrons through easily (good conductors, like copper); others resist them strongly (like rubber). A resistor is a piece of material chosen to resist the current by a specific known amount, measured in <strong>ohms (Ω)</strong>. The bigger the resistance, the less current flows for the same voltage. This relationship is <strong>Ohm's Law: V = I × R</strong>.</p>
+        </div>
+      </div>
+      <div class="layer lev-3">
+        <div class="layer-tag">
+          <span class="lev">Level 3</span>
+          <span class="who">Hobbyist / student</span>
+          <span class="time">read: 2 min</span>
+        </div>
+        <div class="layer-body">
+          <p>A resistor's resistance is determined by the material's <em>resistivity</em> (ρ), its length (L), and its cross-sectional area (A): <strong>R = ρ × L / A</strong>. To make a resistor of a chosen value, you pick a material with known ρ and shape it to the right L and A. Real resistors also have a <em>tolerance</em> (typical: ±1% to ±10%), a <em>power rating</em> (¼ W, ½ W, 1 W…), and a <em>temperature coefficient</em> that says how much R drifts as the component heats up. Above about 100 kHz, parasitic inductance and capacitance start to matter; for high-frequency work, choose a resistor designed for it.</p>
+        </div>
+      </div>
+      <div class="layer lev-4">
+        <div class="layer-tag">
+          <span class="lev">Level 4</span>
+          <span class="who">Specialist / engineer</span>
+          <span class="time">read: 3 min</span>
+        </div>
+        <div class="layer-body">
+          <p>In the diffusive transport regime, ρ = 1/(n·q·μ) where n is the carrier concentration, q the elementary charge, and μ the mobility. Thin-film resistors deposited via sputter or e-beam evaporation are characterised by <em>sheet resistance</em> R<sub>s</sub> = ρ/t, with t the film thickness; the bulk-equivalent resistance becomes R = R<sub>s</sub> × (L/W). For NiCr films, R<sub>s</sub> typically falls in the 25–300 Ω/sq range with TCRs of ±25 ppm/°C achievable post-laser-trim. At GHz frequencies the lumped model breaks down; one must consider distributed parasitics, skin-depth effects (δ = √(2ρ/(ωμ₀μ<sub>r</sub>))), and substrate dielectric loss tan δ. Johnson–Nyquist noise sets the lower bound on voltage noise: V<sub>n</sub> = √(4 k<sub>B</sub> T R Δf).</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>Ways to make one</h2>
+    <p>Four methods are documented on B.L.U.E., one at each difficulty level. Pick the one that suits your tools, your budget, and how precise you need to be.</p>
+
+    <!-- ================ METHOD 1 ================ -->
+    <h3>Level 1 — The pencil trick (the 5-minute version)</h3>
+
+    <div class="plain-words">
+      <div class="label">📘 In plain words for Level 1</div>
+      <p>This is the easiest way to make a resistor and you can do it right now with stuff you already have at home. The lead inside a pencil is made of graphite, which slows down electricity. Draw a thick line, attach two wires, and you've made a resistor.</p>
+    </div>
+
+    <p><strong>What you need</strong> (probably already in the house):</p>
+    <ul>
+      <li>A pencil (the softer the better — 6B is great)</li>
+      <li>A piece of paper or a piece of cardboard</li>
+      <li>Two metal paper clips, or two short wires with crocodile clips</li>
+      <li>(Optional) A multimeter to measure the result</li>
+    </ul>
+
+    <p><strong>How to do it</strong>:</p>
+    <ol>
+      <li>Draw a thick, dark rectangle with the pencil — about 5 cm long and 5 mm wide. Go over it 20 or 30 times so the line is really solid and shiny.</li>
+      <li>Attach a paper clip to each end of the line, pressing firmly so the metal touches the graphite.</li>
+      <li>Connect the two paper clips to a small circuit (e.g. a battery and an LED). The LED should glow dimly — the pencil line is resisting the current.</li>
+    </ol>
+
+    <p><strong>What value did you make?</strong> A typical pencil line at this size gives about <strong>1 kΩ to 50 kΩ</strong>. The longer and thinner you draw it, the higher the resistance. The thicker and shorter, the lower. Try drawing several lines of different sizes to see how it changes.</p>
+
+    <!-- ================ METHOD 2 ================ -->
+    <h3>Level 2 — Carbon-composition resistor (the workshop version)</h3>
+
+    <div class="plain-words">
+      <div class="label">📘 In plain words for Level 2</div>
+      <p>The same idea as the pencil trick, but proper. You mix graphite powder with glue, shape it into a tube, bake it, and put metal caps on each end. This is how resistors were actually made from the 1920s right through to the 1970s.</p>
+    </div>
+
+    <p><strong>What you need</strong>:</p>
+    <ul>
+      <li>Powdered <span class="gloss">graphite</span> (from an art shop, or grind down pencil leads)</li>
+      <li>A <span class="gloss">phenolic resin</span> or epoxy as a binder</li>
+      <li>A small mould (a drinking straw works for prototypes)</li>
+      <li>Two short copper wires (the "leads")</li>
+      <li>A small oven or hot plate that can reach 150 °C</li>
+      <li>A multimeter</li>
+    </ul>
+
+    <div class="gloss-def">
+      <span class="term">graphite:</span> the dark, soft form of carbon found in pencil leads. It conducts electricity, but not as well as a metal.
+    </div>
+    <div class="gloss-def">
+      <span class="term">phenolic resin:</span> a strong, heat-resistant glue made from phenol and formaldehyde. Hardens permanently when baked.
+    </div>
+
+    <p><strong>How to do it</strong>:</p>
+    <ol>
+      <li><strong>Mix</strong> graphite powder and resin in roughly 4 parts graphite to 1 part resin. The more graphite, the lower the final resistance.</li>
+      <li><strong>Mould</strong> the mixture into the straw, leaving a few millimetres at each end empty.</li>
+      <li><strong>Insert</strong> a wire into each empty end, pushing it gently into the mixture so it touches the graphite paste.</li>
+      <li><strong>Bake</strong> at 150 °C for about an hour. The resin will harden permanently.</li>
+      <li><strong>Slip off</strong> the straw. You now have a small cylindrical resistor.</li>
+      <li><strong>Measure</strong> with a multimeter to find the actual value. It will likely fall between 100 Ω and 10 kΩ.</li>
+    </ol>
+
+    <p>Tolerance with this method is poor — about ±20%. For more accurate values, see Level 3.</p>
+
+    <!-- ================ METHOD 3 ================ -->
+    <h3>Level 3 — Wire-wound precision resistor (the workshop precision version)</h3>
+
+    <div class="plain-words">
+      <div class="label">📘 In plain words for Level 3</div>
+      <p>If you need an exact value, you wrap a long thin wire of high-resistance metal around a small tube. The longer the wire, the higher the resistance. You can calculate exactly how long to make it. This is how the most accurate resistors in the world have been made for over a century.</p>
+    </div>
+
+    <p>This method gives tolerances of ±1% or better and is the standard way to make precision resistors for instrumentation. The wire used is typically a nickel-chromium alloy (e.g. <a>nichrome</a>) or a manganese-copper alloy (e.g. <a>manganin</a>), chosen because its resistance changes very little with temperature.</p>
+
+    <p><strong>Design step — calculate the wire length</strong>. The resistance is given by:</p>
+    <pre style="background:var(--chrome); padding:10px 14px; border:1px solid var(--border-soft); font-size:14px; max-width: 60ch;">  R = ρ × L / A
+
+  where  ρ = resistivity of the wire    (Ω·m)
+         L = length of the wire          (m)
+         A = cross-sectional area        (m²)</pre>
+
+    <p>For nichrome wire with ρ ≈ 1.10 × 10⁻⁶ Ω·m and a diameter of 0.3 mm (A ≈ 7.07 × 10⁻⁸ m²), a length of <strong>L ≈ 6.4 m</strong> gives a 100 Ω resistor.</p>
+
+    <p><strong>What you need</strong>:</p>
+    <ul>
+      <li>A small ceramic former (ceramic tube, ~6 mm diameter)</li>
+      <li>The calculated length of nichrome wire</li>
+      <li>Two metal end-caps that fit the former snugly</li>
+      <li>Heat-resistant lacquer (cement varnish) for protection</li>
+      <li>A precision multimeter or a Wheatstone bridge for measurement</li>
+    </ul>
+
+    <p><strong>How to do it</strong>:</p>
+    <ol>
+      <li><strong>Wind</strong> the wire around the ceramic former in a single tight, evenly-spaced layer. Avoid overlaps — turn-to-turn shorts will lower the value.</li>
+      <li><strong>Bifilar wind</strong> if you need to minimise inductance: fold the wire in half first, then wind both halves together so the magnetic fields cancel.</li>
+      <li><strong>Solder</strong> the wire ends to the metal end-caps.</li>
+      <li><strong>Measure</strong> the actual resistance. If it's too high, file or trim the wire; if too low, unwind a turn.</li>
+      <li><strong>Coat</strong> with heat-resistant lacquer once the value is correct. This protects the wire and locks it in place.</li>
+    </ol>
+
+    <!-- ================ METHOD 4 ================ -->
+    <h3>Level 4 — Thin-film deposition (the chip-fab method)</h3>
+
+    <div class="plain-words">
+      <div class="label">📘 In plain words for Level 4</div>
+      <p>This is how resistors are made inside microchips. A super-thin layer of metal is sprayed onto a glass plate inside a vacuum, then cut into the right shape with a laser. The result is a resistor smaller than a grain of sand, accurate to one part in ten thousand.</p>
+    </div>
+
+    <p>Thin-film resistors are fabricated by depositing a controlled thickness of a resistive alloy (commonly <a>nickel-chromium</a> NiCr, or <a>tantalum nitride</a> TaN) onto an insulating substrate (alumina, fused silica, or silicon dioxide on silicon), then patterning the geometry by <span class="gloss">photolithography</span> and <span class="gloss">etching</span>. Final adjustment to value is done by <span class="gloss">laser trimming</span>.</p>
+
+    <div class="gloss-def">
+      <span class="term">photolithography:</span> a way of drawing very tiny patterns by shining light through a stencil onto a wafer that has been coated in light-sensitive material.
+    </div>
+    <div class="gloss-def">
+      <span class="term">etching:</span> using a chemical to dissolve away unwanted material, leaving only the pattern you want behind.
+    </div>
+    <div class="gloss-def">
+      <span class="term">laser trimming:</span> using a finely-focused laser to burn away a tiny portion of the resistor's material, increasing its resistance until it hits the target value exactly.
+    </div>
+
+    <p><strong>What you need</strong>:</p>
+    <ul>
+      <li>A clean substrate (alumina or oxidised silicon)</li>
+      <li>A magnetron sputtering or e-beam evaporation system</li>
+      <li>A NiCr or TaN target of known composition</li>
+      <li>Photolithography equipment (mask aligner, spin coater, developer)</li>
+      <li>A reactive ion etcher or wet-etch bath</li>
+      <li>A trim laser (typically a Q-switched Nd:YAG, 1064 nm)</li>
+      <li>A four-point probe for sheet-resistance measurement</li>
+    </ul>
+
+    <p><strong>How to do it</strong>:</p>
+    <ol>
+      <li><strong>Clean</strong> the substrate with an RCA-1 / RCA-2 process; bake to drive off moisture.</li>
+      <li><strong>Deposit</strong> the NiCr film at ~5 nm/min in argon plasma, controlling thickness to ±2% to hit a target sheet resistance R<sub>s</sub> (typically 50 Ω/sq).</li>
+      <li><strong>Spin-coat</strong> photoresist; expose through the resistor mask; develop.</li>
+      <li><strong>Etch</strong> the unwanted film in cerium ammonium nitrate (for NiCr) or CF₄ plasma (for TaN).</li>
+      <li><strong>Strip</strong> the resist; deposit and pattern the contact metal (Au, Cr/Au, or Al).</li>
+      <li><strong>Anneal</strong> at 250–400 °C in vacuum to stabilise the film and minimise TCR.</li>
+      <li><strong>Probe-test</strong> each resistor with a four-point measurement.</li>
+      <li><strong>Laser-trim</strong> any out-of-tolerance resistors by cutting plunge or L-shaped patterns until each reads its target value within ±0.01%.</li>
+    </ol>
+
+    <p>This method is capable of producing resistors with tolerances of ±0.005% and TCRs as low as ±5 ppm/°C, suitable for precision metrology instruments, ADC reference circuits, and aerospace applications.</p>
+
+    <!-- ================ COLOUR BANDS ================ -->
+    <h2>How to read the colour bands</h2>
+    <p>Manufactured resistors use coloured bands to indicate their value. The first two bands are digits, the third is a multiplier, and the fourth is the tolerance.</p>
+
+    <table class="data">
+      <thead>
+        <tr><th>Colour</th><th>Digit</th><th>Multiplier</th><th>Tolerance</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Black</td><td>0</td><td>×1</td><td>—</td></tr>
+        <tr><td>Brown</td><td>1</td><td>×10</td><td>±1%</td></tr>
+        <tr><td>Red</td><td>2</td><td>×100</td><td>±2%</td></tr>
+        <tr><td>Orange</td><td>3</td><td>×1 k</td><td>—</td></tr>
+        <tr><td>Yellow</td><td>4</td><td>×10 k</td><td>—</td></tr>
+        <tr><td>Green</td><td>5</td><td>×100 k</td><td>±0.5%</td></tr>
+        <tr><td>Blue</td><td>6</td><td>×1 M</td><td>±0.25%</td></tr>
+        <tr><td>Violet</td><td>7</td><td>×10 M</td><td>±0.1%</td></tr>
+        <tr><td>Grey</td><td>8</td><td>—</td><td>±0.05%</td></tr>
+        <tr><td>White</td><td>9</td><td>—</td><td>—</td></tr>
+        <tr><td>Gold</td><td>—</td><td>×0.1</td><td>±5%</td></tr>
+        <tr><td>Silver</td><td>—</td><td>×0.01</td><td>±10%</td></tr>
+      </tbody>
+    </table>
+
+    <p><em>Example:</em> Brown-Black-Red-Gold reads as 1, 0, ×100, ±5% = <strong>1,000 Ω = 1 kΩ ± 5%</strong>.</p>
+
+    <!-- ================ DID YOU KNOW ================ -->
+    <div class="did-you-know">
+      <div class="label">💡 Did you know?</div>
+      <p>… that resistors are the most-manufactured electronic component in history? Over <strong>20 trillion</strong> are produced every year — enough to give every person on Earth more than 2,500 brand-new resistors annually.</p>
+      <div class="simple">
+        <span class="simple-label">In plain words:</span> Factories make 20 million million of these tiny things every year. That's more than there are grains of sand on most beaches. They're inside everything that runs on electricity.
+      </div>
+    </div>
+
+    <!-- ================ VERIFICATION ================ -->
+    <h2>How to check it works</h2>
+    <p>Whichever method you used, you can test your resistor with a multimeter:</p>
+    <ol>
+      <li>Set the multimeter to <strong>resistance mode</strong> (the symbol is Ω).</li>
+      <li>Touch one probe to each terminal of the resistor.</li>
+      <li>Read the value on the display.</li>
+      <li>Compare with what you expected. For Level 1 expect a wide range; for Level 4, sub-0.01% accuracy.</li>
+    </ol>
+
+    <h2>See also</h2>
+    <ul>
+      <li><a>Capacitor</a> — stores electrical charge</li>
+      <li><a>Inductor</a> — stores energy in a magnetic field</li>
+      <li><a>Ohm's Law</a></li>
+      <li><a>Wheatstone bridge</a></li>
+      <li><a>Surface-mount technology (SMT)</a></li>
+      <li><a>History of the resistor</a></li>
+    </ul>
+
+    <h2>References</h2>
+    <ol style="font-size:14px;line-height:1.55">
+      <li>Horowitz, P.; Hill, W. (2015). <em>The Art of Electronics</em> (3rd ed.). Cambridge University Press.</li>
+      <li>Rao, B. K. (2003). <em>Thin Film Resistors</em>. Materials and Manufacturing Processes 18 (4).</li>
+      <li>IEC 60062:2016 — Marking codes for resistors and capacitors.</li>
+      <li>Reviewed under B.L.U.E. policy <a>BVP:Review</a> on 5 May 2026 by 5 verifiers. <a>See review record</a>.</li>
+    </ol>
+
+    <div class="categories">
+      <span class="categories-label">Categories:</span>
+      <a>Electronics</a>
+      <a>Components</a>
+      <a>Multi-level lessons</a>
+      <a>Featured lessons</a>
+      <a>Multilingual lessons</a>
+    </div>
+
+  </main>
+
+</div>
+
+<div class="footer">
+  Content available under <a>CC BY-SA 4.0</a> · From an idea by <a>Sebastian Rey</a> · Static design mockup, no interactivity
+  &nbsp;·&nbsp; See also: <a href="../docs/09-sebastian-problems.md">our proposed solutions to Sebastian's three open problems</a>
+</div>
+
+</body>
+</html>
